@@ -22,4 +22,6 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::resource('users', UserController::class)->only('index');
+Route::middleware(['require.pin'])->group(function () {
+    Route::resource('users', UserController::class)->only('index');
+});
